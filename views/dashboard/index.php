@@ -4,7 +4,5 @@
  */
 ?>
 <?php
- echo $this->render('sidebar')
+//  echo $this->render('sidebar')
 ?>
-
-  

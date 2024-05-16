@@ -379,7 +379,7 @@ h6 {
 .header {
   transition: all 0.5s;
   z-index: 997;
-  height: 60px;
+  height: 80px;
   box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
   background-color: #ffffff;
   padding-left: 20px;
@@ -589,7 +589,10 @@ h6 {
   font-size: 18px;
   line-height: 0;
 }
-
+p{
+  color:#012970;
+   font-weight: bold;
+}
 .header-nav .profile .dropdown-item:hover {
   background-color: #f6f9ff;
 }
