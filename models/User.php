@@ -17,7 +17,6 @@ use yii\web\IdentityInterface;
  * @property int $ID
  * @property string $PASSWORD
  * @property string $EMAIL
- * @property int|null $GROUP_ID
  * @property string|null $AUTH_KEY
  * @property string|null $ACCESS_TOKEN
  * @property string|null $PASSWORD_RESET_TOKEN
@@ -33,6 +32,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
+    const ROLE_USER= 20;
+    const ROLE_ADMIN = 12;
     /**
      * {@inheritdoc}
      */
@@ -68,6 +69,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             [['EMAIL'], 'unique'],
             ['STATUS', 'default', 'value' => self::STATUS_INACTIVE],
             ['STATUS', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+            ['USER_ROLE', 'default', 'value' => self::ROLE_USER],
+            ['USER_ROLE', 'in', 'range' => [self::ROLE_USER, self::ROLE_ADMIN]],
         ];
     }
 
@@ -112,9 +115,13 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
      * @param string $email
      * @return static|null
      */
+    // public static function findByEmail($email)
+    // {
+    //     return static::findOne(['EMAIL' => $email]); //'status' => self::STATUS_ACTIVE
+    // }
     public static function findByEmail($email)
     {
-        return static::findOne(['EMAIL' => $email]); //'status' => self::STATUS_ACTIVE
+        return static::findOne(['EMAIL' => $email, 'STATUS' => self::STATUS_ACTIVE]);
     }
 
     /**
