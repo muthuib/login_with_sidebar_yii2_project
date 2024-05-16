@@ -24,116 +24,33 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <html lang="<?= Yii::$app->language ?>" class="h-100">
 
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
 
 <body class="d-flex flex-column h-100">
     <?php $this->beginBody() ?>
-
-    <header id="header" class="header fixed-top d-flex align-items-center">
-
-        <div class="d-flex align-items-center justify-content-between">
-            <a href="<?= Yii::$app->homeUrl ?>" class="logo d-flex align-items-center">
-                <img src="assets/img/logo.png" alt="">
-                <span class="d-none d-lg-block"><?php echo Yii::$app->name ?></span>
-            </a>
-
-
-        </div><!-- End Logo -->
-
-
-        <nav class="header-nav ms-auto">
-            <ul class="d-flex align-items-center">
-                <ul class="d-flex align-items-center">
-                    <!--                <li class="nav-item">-->
-                    <!--                    <a class="nav-link" href="--><?php //= Yii::$app->homeUrl 
-                                                                            ?>
-                    <!--">Home</a>-->
-                    <!--                </li>-->
-                    <!---->
-                    <!--                <li class="nav-item">-->
-                    <!--                    <a class="nav-link" href="--><?php //= Yii::$app->urlManager->createUrl(['/site/about']) 
-                                                                            ?>
-                    <!--">About</a>-->
-                    <!--                </li>-->
-                    <!---->
-                    <!--                <li class="nav-item">-->
-                    <!--                    <a class="nav-link" href="--><?php //= Yii::$app->urlManager->createUrl(['/site/contact']) 
-                                                                            ?>
-                    <!--">Contact</a>-->
-                    <!--                </li>-->
-
-                    <?php if (Yii::$app->user->isGuest) : ?>
-                    <li class="nav-item">
-                        <a class="nav-link"
-                            href="<?= Yii::$app->urlManager->createUrl(['/site/signup']) ?>">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= Yii::$app->urlManager->createUrl(['/site/login']) ?>">Login</a>
-                    </li>
-                    <?php else : ?>
-                    <li class="nav-item">
-                        <?= Html::beginForm(['/site/logout'], 'post') ?>
-                        <?= Html::submitButton(
-                                'Logout (' . Yii::$app->user->identity->EMAIL . ')',
-                                ['class' => 'nav-link btn btn-link logout']
-                            ) ?>
-                        <?= Html::endForm() ?>
-                    </li>
-                    <?php endif; ?>
-                </ul>
-
-
-        </nav><!-- End Icons Navigation -->
-
-    </header><!-- End Header -->
-
+    <?php echo $this->render('/dashboard/header') ?>
     <?php
-    //    NavBar::begin([
-    //        'brandLabel' => Yii::$app->name,
-    //        'brandUrl' => Yii::$app->homeUrl,
-    //        'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
-    //    ]);
-    //    echo Nav::widget([
-    //        'options' => ['class' => 'navbar-nav'],
-    //        'items' => [
-    //            ['label' => 'Home', 'url' => ['/site/index']],
-    //            ['label' => 'About', 'url' => ['/site/about']],
-    //            ['label' => 'Contact', 'url' => ['/site/contact']],
-    //            ['label' => 'Signup', 'url' => ['/users/signup']],
-    //            Yii::$app->user->isGuest
-    //                ? ['label' => 'Login', 'url' => ['/site/login']]
-    //                : '<li class="nav-item">'
-    //                    . Html::beginForm(['/site/logout'])
-    //                    . Html::submitButton(
-    //                        'Logout (' . Yii::$app->user->identity->EMAIL . ')',
-    //                        ['class' => 'nav-link btn btn-link logout']
-    //                    )
-    //                    . Html::endForm()
-    //                    . '</li>'
-    //        ]
-    //    ]);
-    //    NavBar::end();
+    if (!Yii::$app->user->isGuest) {
+        echo $this->render('/dashboard/sidebar');  
+    }
     ?>
-
-
     <main id="main" class="main">
         <div class="container">
             <div class="pagetitle">
                 <?php if (!empty($this->params['breadcrumbs'])) : ?>
                 <?= Breadcrumbs::widget(['links' => $this->params['breadcrumbs']]) ?>
                 <?php endif ?>
-                <?= Alert::widget() ?>
+                <div style="max-width: 400px;">
+                    <!-- Adjust max-width as needed -->
+                    <?= Alert::widget() ?>
+                </div>
                 <?= $content ?>
             </div>
         </div>
     </main>
-
-
-
-
-
     <?php $this->endBody() ?>
 </body>
 
